@@ -1,0 +1,28 @@
+#include <xc.h>
+#include <pic18f4550.h>
+#include <conio.h>
+#define _XTAL_FREQ 4000000
+
+void putch(unsigned char data){
+    while(PIR1bits.TXIF==0);
+    TXREG = data;
+}
+
+void init_uart(void){
+    TXSTA1bits.TXEN =1;
+    RCSTA1bits.SPEN =1;
+}
+
+void main(void){
+    init_uart();
+    int a =0;
+    TRISC = 0;
+    TXSTA = 0x20;
+    RCSTA = 0b10010000;
+    SPBRG=6;
+    TRISCbits.TRISC7 = 1;
+    while(PIR1bits.RCIF==0);
+    a = RCREG;
+    printf("\nK is : %d", a);
+    return;
+}

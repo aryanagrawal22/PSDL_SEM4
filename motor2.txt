@@ -1,0 +1,27 @@
+#include <xc.h>
+
+void main(void) {
+    
+    int i;
+    TRISCbits.TRISC2 = 0;
+    CCP1CON = 0b00101100;
+    T2CON = 0b00000010;
+    GIE =1;
+    TRISAbits.TRISA4 = 0;
+    while(1)
+    {
+        TMR2=0;
+        PR2=250;
+        CCPR1L = 2;
+        
+        TMR2IF = 0;
+        TMR2ON= 1;
+        for(int i=2;i<255;i+=50)
+        {
+            CCPR1L=i;
+            for(int j=0;j<1000;j++)
+                for(int k=0;k<10000;k++);
+                    LATAbits.LATA4=~LATAbits.LATA4;
+        }
+    }
+}

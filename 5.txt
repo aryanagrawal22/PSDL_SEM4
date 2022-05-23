@@ -1,0 +1,16 @@
+#include <xc.h>
+#include<pic18f4550.h>
+
+void main(void) {
+    int choice;
+    WREG = 10;
+    switch (choice) {
+        case 1:
+            WREG = WREG + 100;
+            break;
+        case 2:
+            WREG = WREG - 11;
+            break;
+    }
+    return;
+}
